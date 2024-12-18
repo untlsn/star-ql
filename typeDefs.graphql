@@ -147,16 +147,21 @@ type Starship {
 }
 
 type Query {
-    allFilms(limit: Int, page: Int): [Film]
+    allFilms(limit: Int, page: Int, title: String!): [Film]
     film(id: Int!): Film
     allPeoples(limit: Int, page: Int): [SmallResponse]
+    allPeoplesFiltered(limit: Int, page: Int, name: String!): [SmallResponse]
     people(id: Int!): People
     allPlanets(limit: Int, page: Int): [SmallResponse]
+    allPlanetsFiltered(limit: Int, page: Int, name: String!): [Planet]
     planet(id: Int!): Planet
     allSpecies(limit: Int, page: Int): [SmallResponse]
+    allSpeciesFiltered(limit: Int, page: Int, name: String!): [Specie]
     specie(id: Int!): Specie
     allVehicles(limit: Int, page: Int): [SmallResponse]
+    allVehiclesFiltered(limit: Int, page: Int, name: String, model: String): [Vehicle]
     vehicle(id: Int!): Vehicle
     allStarships(limit: Int, page: Int): [SmallResponse]
+    allStarshipsFiltered(limit: Int, page: Int, name: String, model: String): [Starship]
     starship(id: Int!): Starship
 }

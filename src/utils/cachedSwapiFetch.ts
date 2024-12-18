@@ -33,7 +33,8 @@ export async function cachedSwapiFetch<T extends object>(path: string): Promise<
 
 	const res = await fetch(url);
 	if (res.status >= 300) throw await createRestError(res);
-	const { results: body } = await res.json();
+	const json = await res.json();
+	const body = json.results || json.result
 	await responseCacheMutation({ url, body: JSON.stringify(body) });
 	return body;
 }
