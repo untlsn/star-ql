@@ -5,6 +5,7 @@ import { cachedSwapiFetch } from './utils/cachedSwapiFetch.ts';
 import { RestError } from './utils/restError.ts';
 import { createSearchParams } from './utils/searchParams.ts';
 import { removeOldResponseCache } from './utils/cron.ts';
+import { countWords, getMostUsedWordFromSource } from './utils/wordsCounter.ts';
 
 function getTypeDefs() {
 	return fs.readFileSync('./typeDefs.graphql', 'utf8')
@@ -67,6 +68,24 @@ export const schema = createSchema({
 			},
 			async starship(_parent, { id }: { id: number }) {
 				return cachedSwapiFetch(`/starships/${id}`);
+			},
+		},
+		Film: {
+			async crawl_words_count(parent) {
+				return countWords(
+					parent.properties.opening_crawl
+				)
+			},
+			async crawl_popular_persons_count(parent) {
+				const peoples = await cachedSwapiFetch<{
+					uid: string,
+					name: string,
+					url: string,
+				}[]>(`/people?page=1&limit=999`);
+				return getMostUsedWordFromSource(
+					parent.properties.opening_crawl,
+					peoples.map(it => it.name),
+				)
 			},
 		}
 	},

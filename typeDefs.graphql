@@ -14,11 +14,18 @@ type FilmProperties {
     opening_crawl: String
     url: String
 }
+type CrawlWordsCount {
+    word: String
+    count: Int
+}
+
 type Film {
     properties: FilmProperties
     description: String
     _id: String
     uid: String
+    crawl_words_count: [CrawlWordsCount]
+    crawl_popular_persons_count: [String]
 }
 
 type SmallResponse {
@@ -147,7 +154,7 @@ type Starship {
 }
 
 type Query {
-    allFilms(limit: Int, page: Int, title: String!): [Film]
+    allFilms(limit: Int, page: Int, title: String): [Film]
     film(id: Int!): Film
     allPeoples(limit: Int, page: Int): [SmallResponse]
     allPeoplesFiltered(limit: Int, page: Int, name: String!): [SmallResponse]
