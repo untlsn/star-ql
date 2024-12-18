@@ -1,7 +1,7 @@
-import { responseCache } from '../../db/schema.ts';
+import { responseCache } from '../db/schema.ts';
 import cron from 'node-cron'
 import { createPreparedQuery, type PreparePlaceholder } from './db.ts';
-import { db } from '../../db';
+import { db } from '../db';
 import * as s from 'drizzle-orm';
 import * as date from 'date-fns';
 

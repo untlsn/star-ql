@@ -1,7 +1,7 @@
 import { createRestError } from './restError.ts';
-import { db } from '../../db';
+import { db } from '../db';
 import * as s from 'drizzle-orm';
-import { responseCache } from '../../db/schema.ts';
+import { responseCache } from '../db/schema.ts';
 import { createPreparedQuery, type PreparePlaceholder } from './db.ts';
 
 const responseCacheQuery = createPreparedQuery((placeholder: PreparePlaceholder<{ url: string }>) => {
