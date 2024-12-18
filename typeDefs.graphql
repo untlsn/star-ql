@@ -147,16 +147,16 @@ type Starship {
 }
 
 type Query {
-    allFilms: [Film]
+    allFilms(limit: Int, page: Int): [Film]
     film(id: Int!): Film
-    allPeoples: [SmallResponse]
+    allPeoples(limit: Int, page: Int): [SmallResponse]
     people(id: Int!): People
-    allPlanets: [SmallResponse]
+    allPlanets(limit: Int, page: Int): [SmallResponse]
     planet(id: Int!): Planet
-    allSpecies: [SmallResponse]
+    allSpecies(limit: Int, page: Int): [SmallResponse]
     specie(id: Int!): Specie
-    allVehicles: [SmallResponse]
+    allVehicles(limit: Int, page: Int): [SmallResponse]
     vehicle(id: Int!): Vehicle
-    allStarships: [SmallResponse]
+    allStarships(limit: Int, page: Int): [SmallResponse]
     starship(id: Int!): Starship
 }
