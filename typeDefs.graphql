@@ -1,0 +1,162 @@
+type FilmProperties {
+    characters: [String]
+    planets: [String]
+    starships: [String]
+    vehicles: [String]
+    species: [String]
+    created: String
+    edited: String
+    producer: String
+    title: String
+    episode_id: Int
+    director: String
+    release_date: String
+    opening_crawl: String
+    url: String
+}
+type Film {
+    properties: FilmProperties
+    description: String
+    _id: String
+    uid: String
+}
+
+type SmallResponse {
+    uid: String
+    name: String
+    url: String
+}
+
+type PeopleProperties {
+    height: String
+    mass: String
+    hair_color: String
+    skin_color: String
+    eye_color: String
+    birth_year: String
+    gender: String
+    created: String
+    edited: String
+    name: String
+    homeworld: String
+    url: String
+}
+
+type People {
+    description: String
+    _id: String
+    uid: String
+    properties: PeopleProperties
+}
+
+type PlanetProperties {
+    diameter: String
+    rotation_period: String
+    orbital_period: String
+    gravity: String
+    population: String
+    climate: String
+    terrain: String
+    surface_water: String
+    created: String
+    edited: String
+    name: String
+    url: String
+}
+
+type Planet {
+    description: String
+    _id: String
+    uid: String
+    properties: PeopleProperties
+}
+
+type SpecieProperties {
+    classification: String
+    designation: String
+    average_height: String
+    average_lifespan: String
+    hair_colors: String
+    skin_colors: String
+    eye_colors: String
+    homeworld: String
+    language: String
+    created: String
+    edited: String
+    name: String
+    url: String
+    people: [String]
+}
+
+type Specie {
+    description: String
+    _id: String
+    uid: String
+    properties: SpecieProperties
+}
+
+type VehicleProperties {
+    model: String
+    vehicle_class: String
+    manufacturer: String
+    cost_in_credits: String
+    length: String
+    crew: String
+    passengers: String
+    max_atmosphering_speed: String
+    cargo_capacity: String
+    consumables: String
+    created: String
+    edited: String
+    name: String
+    url: String
+    pilots: [String]
+    films: [String]
+}
+type Vehicle {
+    description: String
+    _id: String
+    uid: String
+    properties: VehicleProperties
+}
+
+type StarshipProperties {
+    model: String
+    starship_class: String
+    manufacturer: String
+    cost_in_credits: String
+    length: String
+    crew: String
+    passengers: String
+    max_atmosphering_speed: String
+    hyperdrive_rating: String
+    MGLT: String
+    cargo_capacity: String
+    consumables: String
+    created: String
+    edited: String
+    name: String
+    url: String
+    pilots: [String]
+}
+type Starship {
+    description: String
+    _id: String
+    uid: String
+    properties: StarshipProperties
+}
+
+type Query {
+    allFilms: [Film]
+    film(id: Int!): Film
+    allPeoples: [SmallResponse]
+    people(id: Int!): People
+    allPlanets: [SmallResponse]
+    planet(id: Int!): Planet
+    allSpecies: [SmallResponse]
+    specie(id: Int!): Specie
+    allVehicles: [SmallResponse]
+    vehicle(id: Int!): Vehicle
+    allStarships: [SmallResponse]
+    starship(id: Int!): Starship
+}

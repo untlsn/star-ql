@@ -1,0 +1,18 @@
+{
+  "name": "star-ql",
+  "module": "index.ts",
+  "type": "module",
+	"scripts": {
+		"dev": "bun --watch ./index.ts"
+	},
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "graphql": "^16.10.0",
+    "graphql-yoga": "^5.10.6"
+  }
+}
