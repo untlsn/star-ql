@@ -6,16 +6,16 @@ import { RestError } from './utils/restError.ts';
 import { createSearchParams } from './utils/searchParams.ts';
 import { removeOldResponseCache } from './utils/cron.ts';
 import { countWords, getMostUsedWordFromSource } from './utils/wordsCounter.ts';
+import { createServer } from 'node:http';
 
 function getTypeDefs() {
-	return fs.readFileSync('./typeDefs.graphql', 'utf8')
+	return fs.readFileSync('./typeDefs.graphql', 'utf8');
 }
-
 
 type FetchAllArgs<T=unknown> = { limit?: number, page?: number } & T;
 
 export const schema = createSchema({
-	typeDefs: getTypeDefs(),
+	typeDefs:  getTypeDefs(),
 	resolvers: {
 		Query: {
 			async allFilms(_parent, args: FetchAllArgs<{ title?: string }> = {}) {
@@ -73,38 +73,40 @@ export const schema = createSchema({
 		Film: {
 			async crawl_words_count(parent) {
 				return countWords(
-					parent.properties.opening_crawl
-				)
+					parent.properties.opening_crawl,
+				);
 			},
 			async crawl_popular_persons_count(parent) {
 				const peoples = await cachedSwapiFetch<{
-					uid: string,
+					uid:  string,
 					name: string,
-					url: string,
-				}[]>(`/people?page=1&limit=999`);
+					url:  string,
+				}[]>('/people?page=1&limit=999');
 				return getMostUsedWordFromSource(
 					parent.properties.opening_crawl,
-					peoples.map(it => it.name),
-				)
+					peoples.map((it) => it.name),
+				);
 			},
-		}
+		},
 	},
-})
+});
 
-const yoga = createYoga({ schema, maskedErrors: {
+export const yoga = createYoga({
+	schema,
+	maskedErrors: {
 		maskError(error, message) {
 			const cause = (error as { originalError?: unknown } | undefined)?.originalError;
-			if (cause instanceof RestError) return cause.toGraphQLError()
+			if (cause instanceof RestError) return cause.toGraphQLError();
 			if (cause instanceof GraphQLError) return cause;
 			return new GraphQLError(message, { extensions: { http: { status: 500 } } });
 		},
-	} })
+	},
+});
 
-const server = Bun.serve({
-	fetch: yoga.fetch,
-	port: 4000,
-})
+const server = createServer(yoga);
+export const yogaUrl = 'http://localhost:4000/graphql';
 
-removeOldResponseCache()
-
-console.log(`Server run on http://localhost:${server.port}`);
+server.listen(4000, () => {
+	removeOldResponseCache();
+	console.log(`Server is running on ${yogaUrl}`);
+});

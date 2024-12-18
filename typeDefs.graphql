@@ -157,7 +157,7 @@ type Query {
     allFilms(limit: Int, page: Int, title: String): [Film]
     film(id: Int!): Film
     allPeoples(limit: Int, page: Int): [SmallResponse]
-    allPeoplesFiltered(limit: Int, page: Int, name: String!): [SmallResponse]
+    allPeoplesFiltered(limit: Int, page: Int, name: String!): [People]
     people(id: Int!): People
     allPlanets(limit: Int, page: Int): [SmallResponse]
     allPlanetsFiltered(limit: Int, page: Int, name: String!): [Planet]

@@ -3,6 +3,6 @@ import postgres from 'postgres';
 import { responseCache } from './schema.ts';
 
 export const db = drizzle(
-	postgres(process.env.DATABASE_URL),
+	postgres(process.env.DATABASE_URL!),
 	{ schema: { responseCache } },
 );
