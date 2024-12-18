@@ -4,6 +4,7 @@ import { GraphQLError } from 'graphql/error';
 import { cachedSwapiFetch } from './utils/cachedSwapiFetch.ts';
 import { RestError } from './utils/restError.ts';
 import { createSearchParams } from './utils/searchParams.ts';
+import { removeOldResponseCache } from './utils/cron.ts';
 
 function getTypeDefs() {
 	return fs.readFileSync('./typeDefs.graphql', 'utf8')
@@ -84,5 +85,7 @@ const server = Bun.serve({
 	fetch: yoga.fetch,
 	port: 4000,
 })
+
+removeOldResponseCache()
 
 console.log(`Server run on http://localhost:${server.port}`);

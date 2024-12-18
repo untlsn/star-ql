@@ -15,9 +15,12 @@
   "dependencies": {
     "@eslint/js": "^9.17.0",
     "@stylistic/eslint-plugin": "^2.12.1",
+    "@types/node-cron": "^3.0.11",
+    "date-fns": "^4.1.0",
     "drizzle-orm": "^0.38.2",
     "graphql": "^16.10.0",
     "graphql-yoga": "^5.10.6",
+    "node-cron": "^3.0.3",
     "postgres": "^3.4.5",
     "typescript-eslint": "^8.18.1"
   }
