@@ -28,6 +28,9 @@ export function removeOldResponseCache(): void {
 			console.log('Cache cleared successfully.');
 		} catch (error) {
 			console.error('Cache cleared unsuccessfully:', error);
+			console.error('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
+				process.env.DATABASE_URL,
+				'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
 		}
 	}, { runOnInit: true });
 }

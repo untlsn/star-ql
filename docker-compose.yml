@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16.3-alpine3.18
+    container_name: star_ql_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password123
+      POSTGRES_DB: star_ql_cache
+    ports:
+      - "5432:5432"
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: star_ql_backend
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@star_ql_db:5432/${POSTGRES_DB}
+      - SWAPI_URL=https://swapi.tech/api
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
