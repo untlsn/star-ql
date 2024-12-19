@@ -24,6 +24,14 @@ const responseCacheMutation = createPreparedQuery((placeholder: PreparePlacehold
 		.prepare('response_cache_mutation');
 });
 
+/**
+ * Allow you to fetch from swapi with addition of 24h caching
+ * @example
+ * // Fetch from swapi
+ * const peopleResponse = cachedSwapiFetch('/people');
+ * // Get from cache
+ * const peopleResponse = cachedSwapiFetch('/people');
+ */
 export async function cachedSwapiFetch<T extends object>(path: string): Promise<T> {
 	const url = `${process.env.SWAPI_URL}${path}`;
 	if (process.env.NODE_ENV == 'test') {

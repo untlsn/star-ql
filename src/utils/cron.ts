@@ -11,6 +11,10 @@ const responseCacheDelete = createPreparedQuery((placeholder: PreparePlaceholder
 		.prepare('response_cache_query');
 });
 
+/**
+ * Create cron schedule that will remove old cache every midnight
+ * Use i one per project
+ */
 export function removeOldResponseCache(): void {
 	if (process.env.NODE_ENV == 'test') return;
 	console.log('Corn scheduled started');
